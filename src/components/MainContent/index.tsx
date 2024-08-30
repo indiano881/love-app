@@ -1,10 +1,17 @@
+"use client"
+
+import { useState } from "react";
+
+
 import Form from "../Form";
 
 
 const MainContent = () => {
+  
+
     return (
         <div className="grow bg-red-400">
-          <h2 >main content</h2>
+          
           <Form />
         </div>
     )
