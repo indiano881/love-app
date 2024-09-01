@@ -14,7 +14,7 @@ const Form = () => {
         console.log("name 2 is " + name2);
 
         if (name1 && name2) {
-            // Pass setNumber as the updateFunction to calculateCompatibilityScore
+            
             calculateCompatibilityScore(name1, name2, setNumber);
         }
 
@@ -26,7 +26,8 @@ const Form = () => {
     return (
         <form className="bg-pink" onSubmit={(e) => handleSubmit(e)}>
             <div className="">
-                <label htmlFor="name1">
+                <label htmlFor="name1" data-testid="name1">
+                    
                     <input
                         type="text"
                         id="name1"
