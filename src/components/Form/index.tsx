@@ -26,27 +26,31 @@ const Form = () => {
     return (
         <form className="bg-pink" onSubmit={(e) => handleSubmit(e)}>
             <div className="">
-                <label htmlFor="name1" data-testid="name1">
+                <label htmlFor="name1" >
                     
                     <input
                         type="text"
                         id="name1"
-                        onChange={(e) => setName1(e.target.value)}
                         value={name1}
+                        data-testid="name1"
+                        onChange={(e) => setName1(e.target.value)}
+                        
                     />
                 </label>
                 ❤️❤️❤️
-                <label htmlFor="name2">
+                <label htmlFor="name2" >
                     <input
                         type="text"
                         id="name2"
-                        onChange={(e) => setName2(e.target.value)}
                         value={name2}
+                        data-testid="name2"
+                        onChange={(e) => setName2(e.target.value)}
+                        
                     />
                 </label>
             </div>
             <button type="submit">is a date?</button>
-            {number !== null && <p>Compatibility Score: {number}</p>}
+            {number !== null && <p data-testid="score-message">Compatibility Score: {number}</p>}
         </form>
     );
 };
