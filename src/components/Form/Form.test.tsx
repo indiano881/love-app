@@ -13,33 +13,156 @@ describe("Form", ()=> {
         const ButtonFields= screen.getByRole("button")
         expect(ButtonFields).toBeInTheDocument();
     })
+    
+})
+
+describe("3 possible combinations of click-STRING CASES", ()=> {
+    
+    //user s fill both textbox and press button= CORRECT OPTION
     test("Button click", async () => {
-        // Render the Form component
         render(<Form />);  
         
         const mockName1 = "Adam";
         const mockName2 = "Eve";
     
-        // Get the input fields by testId
         const inputField1 = screen.getByTestId("name1");
         const inputField2 = screen.getByTestId("name2");
     
-        // Simulate user typing into input fields
         fireEvent.change(inputField1, { target: { value: mockName1 } });
         fireEvent.change(inputField2, { target: { value: mockName2 } });
     
-        // Get the button element by role
         const buttonField = screen.getByRole("button");
     
-        // Click the button to trigger form submission
         fireEvent.click(buttonField);
     
-        // Wait for the compatibility score message to appear after clicking the button
         const compatibilityScore = await screen.findByTestId("score-message");
     
-        // Expect the compatibility score to be displayed in the document
         expect(compatibilityScore).toBeInTheDocument();
     });
+     //user s fills only SECOND textbox and press button= WRONG OPTION
+     test("Button click", async () => {
+        render(<Form />);  
+        
+        const mockName1 = "";
+        const mockName2 = "Eve";
     
+        const inputField1 = screen.getByTestId("name1");
+        const inputField2 = screen.getByTestId("name2");
+    
+        fireEvent.change(inputField1, { target: { value: mockName1 } });
+        fireEvent.change(inputField2, { target: { value: mockName2 } });
+    
+        const buttonField = screen.getByRole("button");
+    
+        fireEvent.click(buttonField);
+    
+        const compatibilityScore =  screen.queryByTestId("score-message");
+    
+        expect(compatibilityScore).toBe(null);
+    });
+     //user s fills only FIRST textbox and press button= WRONG OPTION
+     test("Button click", async () => {
+        render(<Form />);  
+        
+        const mockName1 = "Adam";
+        const mockName2 = "";
+    
+        const inputField1 = screen.getByTestId("name1");
+        const inputField2 = screen.getByTestId("name2");
+    
+        fireEvent.change(inputField1, { target: { value: mockName1 } });
+        fireEvent.change(inputField2, { target: { value: mockName2 } });
+    
+        const buttonField = screen.getByRole("button");
+    
+        fireEvent.click(buttonField);
+    
+        const compatibilityScore =  screen.queryByTestId("score-message");
+    
+        expect(compatibilityScore).toBe(null);
+    });
+    //user s fills only FIRST textbox and press button= WRONG OPTION
+    test("Button click", async () => {
+        render(<Form />);  
+        
+        const mockName1 = "";
+        const mockName2 = "";
+    
+        const inputField1 = screen.getByTestId("name1");
+        const inputField2 = screen.getByTestId("name2");
+    
+        fireEvent.change(inputField1, { target: { value: mockName1 } });
+        fireEvent.change(inputField2, { target: { value: mockName2 } });
+    
+        const buttonField = screen.getByRole("button");
+    
+        fireEvent.click(buttonField);
+    
+        const compatibilityScore =  screen.queryByTestId("score-message");
+    
+        expect(compatibilityScore).toBe(null);
+    });
+    describe("3 possible combinations of click-NUMBER CASES", ()=> {
+        test("Button click", async () => {
+            render(<Form />);  
+            
+            const mockName1 = 0;
+            const mockName2 = "";
+        
+            const inputField1 = screen.getByTestId("name1");
+            const inputField2 = screen.getByTestId("name2");
+        
+            fireEvent.change(inputField1, { target: { value: mockName1 } });
+            fireEvent.change(inputField2, { target: { value: mockName2 } });
+        
+            const buttonField = screen.getByRole("button");
+        
+            fireEvent.click(buttonField);
+        
+            const compatibilityScore =  screen.queryByTestId("score-message");
+        
+            expect(compatibilityScore).toBe(null);
+        });
+        test("Button click", async () => {
+            render(<Form />);  
+            
+            const mockName1 = "Adam";
+            const mockName2 = 8;
+        
+            const inputField1 = screen.getByTestId("name1");
+            const inputField2 = screen.getByTestId("name2");
+        
+            fireEvent.change(inputField1, { target: { value: mockName1 } });
+            fireEvent.change(inputField2, { target: { value: mockName2 } });
+        
+            const buttonField = screen.getByRole("button");
+        
+            fireEvent.click(buttonField);
+        
+            const compatibilityScore =  screen.queryByTestId("score-message");
+        
+            expect(compatibilityScore).toBe(null);
+        });
+        test("Button click", async () => {
+            render(<Form />);  
+            
+            const mockName1 = 341;
+            const mockName2 = 8;
+        
+            const inputField1 = screen.getByTestId("name1");
+            const inputField2 = screen.getByTestId("name2");
+        
+            fireEvent.change(inputField1, { target: { value: mockName1 } });
+            fireEvent.change(inputField2, { target: { value: mockName2 } });
+        
+            const buttonField = screen.getByRole("button");
+        
+            fireEvent.click(buttonField);
+        
+            const compatibilityScore =  screen.queryByTestId("score-message");
+        
+            expect(compatibilityScore).toBe(null);
+        });
+    })
 })
 

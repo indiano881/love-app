@@ -10,10 +10,11 @@ const Form = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+       
         console.log("name 1 is " + name1);
         console.log("name 2 is " + name2);
 
-        if (name1 && name2) {
+        if (name1 && name2  && isNaN(name1) && isNaN(name2)) {
             
             calculateCompatibilityScore(name1, name2, setNumber);
         }
