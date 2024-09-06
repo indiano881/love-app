@@ -1,7 +1,8 @@
 import { fireEvent, getByTestId, render, screen} from "@testing-library/react";
 import Form from ".";
 import { SetStateAction } from "react";
-
+import { setupServer } from 'msw/node';
+import { rest } from 'msw';
 
 describe("Form", ()=> {
     test("Renders 2 inputs field", ()=> {

@@ -12,16 +12,27 @@ const Form = ({ combinations, setCombinations }: FormProps) => {
   const [name1, setName1] = useState<string>("");
   const [name2, setName2] = useState<string>("");
   const [number, setNumber] = useState<number | null>(null);
+  const [meal, setMeal] = useState<string>("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (name1 && name2) {
-      calculateCompatibilityScore(name1, name2, (newNumber: number) => {
+      calculateCompatibilityScore(name1, name2, async (newNumber: number) => {
         setNumber(newNumber);
 
-        const newSingleInfo = `${name1} + ${name2} = ${newNumber}`;
-        setCombinations([...combinations, newSingleInfo]);
+        try {
+          // Fetch a random meal from the API
+          const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php");
+          const data = await response.json();
+          const mealName = data.meals[0].strMeal;
+          setMeal(mealName);
+
+          const newSingleInfo = `${name1} + ${name2} = ${newNumber}, Random Meal: ${mealName}`;
+          setCombinations([...combinations, newSingleInfo]);
+        } catch (error) {
+          console.error("Error fetching the meal:", error);
+        }
       });
 
       setName1("");
@@ -87,6 +98,15 @@ const Form = ({ combinations, setCombinations }: FormProps) => {
           data-testid="score-message"
         >
           Compatibility Score: {number}
+        </p>
+      )}
+
+      {meal && (
+        <p
+          className="mt-6 text-lg font-medium text-center text-blue-600"
+          data-testid="meal-message"
+        >
+          Food for best date: {meal}
         </p>
       )}
     </form>
