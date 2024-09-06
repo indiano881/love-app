@@ -1,15 +1,20 @@
 import { fireEvent, getByTestId, render, screen} from "@testing-library/react";
 import Form from ".";
+import { SetStateAction } from "react";
 
 
 describe("Form", ()=> {
     test("Renders 2 inputs field", ()=> {
-        render(<Form />)
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />)
         const inputFields= screen.getAllByRole("textbox")
         expect(inputFields.length).toBe(2)
     })
     test("Renders 1 button", ()=> {
-        render(<Form />)
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />)
         const ButtonFields= screen.getByRole("button")
         expect(ButtonFields).toBeInTheDocument();
     })
@@ -20,7 +25,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
     
     //user s fill both textbox and press button= CORRECT OPTION
     test("Button click", async () => {
-        render(<Form />);  
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />);  
         
         const mockName1 = "Adam";
         const mockName2 = "Eve";
@@ -41,7 +48,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
     });
      //user s fills only SECOND textbox and press button= WRONG OPTION
      test("Button click", async () => {
-        render(<Form />);  
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />);  
         
         const mockName1 = "";
         const mockName2 = "Eve";
@@ -62,7 +71,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
     });
      //user s fills only FIRST textbox and press button= WRONG OPTION
      test("Button click", async () => {
-        render(<Form />);  
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />);  
         
         const mockName1 = "Adam";
         const mockName2 = "";
@@ -83,7 +94,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
     });
     //user s fills only FIRST textbox and press button= WRONG OPTION
     test("Button click", async () => {
-        render(<Form />);  
+        render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+            throw new Error("Function not implemented.");
+        } } />);  
         
         const mockName1 = "";
         const mockName2 = "";
@@ -104,7 +117,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
     });
     describe("3 possible combinations of click-NUMBER CASES", ()=> {
         test("Button click", async () => {
-            render(<Form />);  
+            render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+                throw new Error("Function not implemented.");
+            } } />);  
             
             const mockName1 = 0;
             const mockName2 = "";
@@ -124,7 +139,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
             expect(compatibilityScore).toBe(null);
         });
         test("Button click", async () => {
-            render(<Form />);  
+            render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+                throw new Error("Function not implemented.");
+            } } />);  
             
             const mockName1 = "Adam";
             const mockName2 = 8;
@@ -144,7 +161,9 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
             expect(compatibilityScore).toBe(null);
         });
         test("Button click", async () => {
-            render(<Form />);  
+            render(<Form combinations={[]} setCombinations={function (value: SetStateAction<string[]>): void {
+                throw new Error("Function not implemented.");
+            } } />);  
             
             const mockName1 = 341;
             const mockName2 = 8;
@@ -165,4 +184,5 @@ describe("3 possible combinations of click-STRING CASES", ()=> {
         });
     })
 })
+
 
