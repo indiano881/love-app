@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import MainContent from "."; 
+import List from "../List";
 
 describe("MainContent integration tests", () => {
   
@@ -13,21 +14,21 @@ describe("MainContent integration tests", () => {
     expect(sample2).toBeInTheDocument();
   });
   
-  test("adds a new combination via Form and updates List", () => {
+});
+describe("BUTTON start clicked", () => {
+  
+  test("app starts", () => {
     render(<MainContent />);
-
+    let buttonClicked= screen.getByRole('button', { name: /start/i })
+    const sample1= screen.getByText("Adam + Eve = 0")
+    const sample2= screen.getByText("Davide + Pasta = 100")
+    fireEvent.click(buttonClicked);
+    buttonClicked= screen.getByRole('button', { name: /stop and clear/i })
     
-    const inputField1 = screen.getByTestId("name1");
-    const inputField2 = screen.getByTestId("name2");
+    expect(sample1).not.toBeInTheDocument();
+    expect(sample2).not.toBeInTheDocument();
+    expect(buttonClicked).toBeInTheDocument();
 
-    fireEvent.change(inputField1, { target: { value: "Romeo" } });
-    fireEvent.change(inputField2, { target: { value: "Juliet" } });
-
-   
-    const submitButton = screen.getByRole("button");
-    fireEvent.click(submitButton);
-
-    
-    expect(screen.getByText("Romeo + Juliet = someScore")).toBeInTheDocument(); 
   });
+  
 });
