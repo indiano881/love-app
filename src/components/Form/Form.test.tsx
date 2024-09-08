@@ -3,9 +3,17 @@ import Form from ".";
 
 
 //isTarted===false means input field disabled
-describe("Form", () => {
+describe("Content that is visible on page load", () => {
   beforeEach(() => {
-    render(<Form isStarted={false} combinations={[]} setCombinations={() => {}} score={0} setScore={() => {}} />);
+    render(
+    <Form 
+    isStarted={false} 
+    combinations={[]} 
+    setCombinations={() => {}} 
+    score={0} 
+    setScore={() => {}} 
+    />
+  );
   });
 
   test("Renders 2 input fields", () => {
@@ -22,9 +30,17 @@ describe("Form", () => {
 
 
 //isStarted===true, then input field NOT disabled
-describe("Form", () => {
+describe("Content that is visible after START", () => {
   beforeEach(() => {
-    render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={0} setScore={() => {}} />);
+    render(
+    <Form 
+    isStarted={true} 
+    combinations={[]} 
+    setCombinations={() => {}} 
+    score={0} 
+    setScore={() => {}} 
+    />
+  );
   });
 
   test("Renders 2 input fields", () => {
@@ -50,7 +66,15 @@ describe("Form interaction with various STRING inputs or NULL", () => {
   test.each(cases)(
     "Button click with STRING or NULL combinations",
     async (name1, name2, shouldShowScore) => {
-      render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={null} setScore={() => {}} />);
+      render(
+      <Form 
+      isStarted={true} 
+      combinations={[]} 
+      setCombinations={() => {}} 
+      score={null} 
+      setScore={() => {}} 
+      />
+    );
 
       const inputField1 = screen.getByTestId("name1");
       const inputField2 = screen.getByTestId("name2");
@@ -84,7 +108,14 @@ describe("Form interaction with NUMBER values", () => {
   test.each(numericCases)(
     "Button click with NUMBER or NULL values",
     async (name1, name2, shouldShowScore) => {
-      render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={null} setScore={() => {}} />);
+      render(<Form 
+        isStarted={true} 
+        combinations={[]} 
+        setCombinations={() => {}} 
+        score={null} 
+        setScore={() => {}} 
+        />
+      );
 
       const inputField1 = screen.getByTestId("name1");
       const inputField2 = screen.getByTestId("name2");
