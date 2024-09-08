@@ -15,12 +15,12 @@ describe("MainContent integration tests", () => {
   });
   
 });
-
+//integration test to check flow with buttonclick START
 describe("BUTTON start clicked", () => {
   beforeEach(()=>{
     render(<MainContent />);
   })
-  
+
   test("Start button clicked-samples disappear", () => {
     
     let buttonClicked= screen.getByRole('button', { name: /start/i })
@@ -46,4 +46,39 @@ describe("BUTTON start clicked", () => {
     expect(buttonClicked).toBeInTheDocument();
 
   });
+});
+
+//integration test app has been started-user  fill inputs and press "Caluclate compatibility"
+describe("BUTTON start clicked", () => {
+
+
+  test("user inputs 2 names and clicks the calculate compatibility button", () => {
+    render(<MainContent />);
+    let buttonClicked= screen.getByRole('button', { name: /start/i })
+    
+    fireEvent.click(buttonClicked);
+
+    const name1 = "Mario";
+    const name2 = "Peach";
+  
+    
+    const inputField1 = screen.getByTestId("name1");
+    const inputField2 = screen.getByTestId("name2");
+  
+    fireEvent.change(inputField1, { target: { value: name1 } });
+    fireEvent.change(inputField2, { target: { value: name2 } });
+  
+    
+    const buttonCompatibility = screen.getByRole('button', { name: /calculate compatibility/i });
+    fireEvent.click(buttonCompatibility);
+  
+    
+    const listCombinations = screen.getAllByRole("heading", { level: 5 });
+    
+    
+    expect(listCombinations.length).toBe(1);
+  });
+  
+
+ 
 });
