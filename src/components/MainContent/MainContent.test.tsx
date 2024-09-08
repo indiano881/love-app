@@ -49,10 +49,10 @@ describe("BUTTON start clicked", () => {
 });
 
 //integration test app has been started-user  fill inputs and press "Caluclate compatibility"
-describe("BUTTON start clicked", () => {
+describe("user full interactions", () => {
 
 
-  test("user inputs 2 names and clicks the calculate compatibility button", () => {
+  test("user starts app-fille 2 inputs-press compatability button-only his inputs displayed", () => {
     render(<MainContent />);
     let buttonClicked= screen.getByRole('button', { name: /start/i })
     
@@ -61,7 +61,7 @@ describe("BUTTON start clicked", () => {
     const name1 = "Mario";
     const name2 = "Peach";
   
-    
+  
     const inputField1 = screen.getByTestId("name1");
     const inputField2 = screen.getByTestId("name2");
   
@@ -78,6 +78,35 @@ describe("BUTTON start clicked", () => {
     
     expect(listCombinations.length).toBe(1);
   });
+
+  test("user starts app, fills 2 inputs 3 times, presses compatibility button 3 times, only 3 results displayed", () => {
+    // Render the MainContent component
+    render(<MainContent />);
+  
+    // Start the app by clicking the 'Start' button
+    const buttonStart = screen.getByRole('button', { name: /start/i });
+    fireEvent.click(buttonStart);
+  
+    const buttonCompatibility = screen.getByRole('button', { name: /calculate compatibility/i });
+  
+    const name1 = "Mario";
+    const name2 = "Peach";
+  
+    for (let i = 0; i < 3; i++) {
+      const inputField1 = screen.getByTestId("name1");
+      const inputField2 = screen.getByTestId("name2");
+  
+      fireEvent.change(inputField1, { target: { value: name1 } });
+      fireEvent.change(inputField2, { target: { value: name2 } });
+  
+      fireEvent.click(buttonCompatibility);
+    }
+  
+    
+    const listCombinations = screen.getAllByRole("heading", { level: 5 });
+    expect(listCombinations.length).toBe(3);
+  });
+  
   
 
  
