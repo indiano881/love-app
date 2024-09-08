@@ -1,6 +1,27 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Form from ".";  
 
+
+//isTarted===false means input field disabled
+describe("Form", () => {
+  beforeEach(() => {
+    render(<Form isStarted={false} combinations={[]} setCombinations={() => {}} score={0} setScore={() => {}} />);
+  });
+
+  test("Renders 2 input fields", () => {
+    const inputFields = screen.getAllByRole("textbox");
+    expect(inputFields.length).toBe(2);
+  });
+
+  test("Renders 1 button", () => {
+    const buttonField = screen.getByRole("button");
+    expect(buttonField).toBeInTheDocument();
+  });
+
+});
+
+
+//isStarted===true, then input field NOT disabled
 describe("Form", () => {
   beforeEach(() => {
     render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={0} setScore={() => {}} />);
@@ -61,7 +82,7 @@ describe("Form interaction with NUMBER values", () => {
   ];
 
   test.each(numericCases)(
-    "Button click with name1: %s, name2: %s, expect score visibility: %s",
+    "Button click with NUMBER or NULL values",
     async (name1, name2, shouldShowScore) => {
       render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={null} setScore={() => {}} />);
 

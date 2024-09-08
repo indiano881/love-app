@@ -57,6 +57,7 @@ const Form = ({ combinations, setCombinations, isStarted, score, setScore }: For
         <input
           type="text"
           id="name1"
+          data-testid="name1"
           value={name1}
           onChange={(e) => setName1(e.target.value)}
           className="w-full p-3 border border-purple-300 rounded-md focus:ring-2 focus:ring-purple-500 outline-none"
@@ -75,6 +76,7 @@ const Form = ({ combinations, setCombinations, isStarted, score, setScore }: For
         <input
           type="text"
           id="name2"
+          data-testid="name2"
           value={name2}
           onChange={(e) => setName2(e.target.value)}
           className="w-full p-3 border border-purple-300 rounded-md focus:ring-2 focus:ring-purple-500 outline-none"
