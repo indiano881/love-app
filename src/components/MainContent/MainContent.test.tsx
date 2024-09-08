@@ -15,20 +15,35 @@ describe("MainContent integration tests", () => {
   });
   
 });
+
 describe("BUTTON start clicked", () => {
-  
-  test("app starts", () => {
+  beforeEach(()=>{
     render(<MainContent />);
+  })
+  
+  test("Start button clicked-samples disappear", () => {
+    
     let buttonClicked= screen.getByRole('button', { name: /start/i })
+
     const sample1= screen.getByText("Adam + Eve = 0")
     const sample2= screen.getByText("Davide + Pasta = 100")
+
     fireEvent.click(buttonClicked);
-    buttonClicked= screen.getByRole('button', { name: /stop and clear/i })
     
     expect(sample1).not.toBeInTheDocument();
     expect(sample2).not.toBeInTheDocument();
+
+  });
+
+  test("Start button clicked-button text change", () => {
+    
+    let buttonClicked= screen.getByRole('button', { name: /start/i })
+    
+    fireEvent.click(buttonClicked);
+
+    buttonClicked= screen.getByRole('button', { name: /stop and clear/i })
+   
     expect(buttonClicked).toBeInTheDocument();
 
   });
-  
 });
