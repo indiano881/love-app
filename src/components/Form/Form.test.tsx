@@ -1,168 +1,84 @@
-import { fireEvent, getByTestId, render, screen} from "@testing-library/react";
-import Form from ".";
+import { fireEvent, render, screen } from "@testing-library/react";
+import Form from ".";  
 
+describe("Form", () => {
+  beforeEach(() => {
+    render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={0} setScore={() => {}} />);
+  });
 
-describe("Form", ()=> {
-    test("Renders 2 inputs field", ()=> {
-        render(<Form />)
-        const inputFields= screen.getAllByRole("textbox")
-        expect(inputFields.length).toBe(2)
-    })
-    test("Renders 1 button", ()=> {
-        render(<Form />)
-        const ButtonFields= screen.getByRole("button")
-        expect(ButtonFields).toBeInTheDocument();
-    })
-    
-})
+  test("Renders 2 input fields", () => {
+    const inputFields = screen.getAllByRole("textbox");
+    expect(inputFields.length).toBe(2);
+  });
 
-describe("3 possible combinations of click-STRING CASES", ()=> {
-    
-    //user s fill both textbox and press button= CORRECT OPTION
-    test("Button click", async () => {
-        render(<Form />);  
-        
-        const mockName1 = "Adam";
-        const mockName2 = "Eve";
-    
-        const inputField1 = screen.getByTestId("name1");
-        const inputField2 = screen.getByTestId("name2");
-    
-        fireEvent.change(inputField1, { target: { value: mockName1 } });
-        fireEvent.change(inputField2, { target: { value: mockName2 } });
-    
-        const buttonField = screen.getByRole("button");
-    
-        fireEvent.click(buttonField);
-    
-        const compatibilityScore = await screen.findByTestId("score-message");
-    
+  test("Renders 1 button", () => {
+    const buttonField = screen.getByRole("button");
+    expect(buttonField).toBeInTheDocument();
+  });
+});
+
+describe("Form interaction with various STRING inputs or NULL", () => {
+  
+  const cases = [
+    ["Adam", "Eve", true],  
+    ["", "Eve", false],     
+    ["Adam", "", false],    
+    ["", "", false],       
+  ];
+
+  test.each(cases)(
+    "Button click with STRING or NULL combinations",
+    async (name1, name2, shouldShowScore) => {
+      render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={null} setScore={() => {}} />);
+
+      const inputField1 = screen.getByTestId("name1");
+      const inputField2 = screen.getByTestId("name2");
+
+      fireEvent.change(inputField1, { target: { value: name1 } });
+      fireEvent.change(inputField2, { target: { value: name2 } });
+
+      const buttonField = screen.getByRole("button");
+      fireEvent.click(buttonField);
+
+      const compatibilityScore = shouldShowScore
+        ? await screen.findByTestId("score-message")
+        : screen.queryByTestId("score-message");
+
+      if (shouldShowScore) {
         expect(compatibilityScore).toBeInTheDocument();
-    });
-     //user s fills only SECOND textbox and press button= WRONG OPTION
-     test("Button click", async () => {
-        render(<Form />);  
-        
-        const mockName1 = "";
-        const mockName2 = "Eve";
-    
-        const inputField1 = screen.getByTestId("name1");
-        const inputField2 = screen.getByTestId("name2");
-    
-        fireEvent.change(inputField1, { target: { value: mockName1 } });
-        fireEvent.change(inputField2, { target: { value: mockName2 } });
-    
-        const buttonField = screen.getByRole("button");
-    
-        fireEvent.click(buttonField);
-    
-        const compatibilityScore =  screen.queryByTestId("score-message");
-    
+      } else {
         expect(compatibilityScore).toBe(null);
-    });
-     //user s fills only FIRST textbox and press button= WRONG OPTION
-     test("Button click", async () => {
-        render(<Form />);  
-        
-        const mockName1 = "Adam";
-        const mockName2 = "";
-    
-        const inputField1 = screen.getByTestId("name1");
-        const inputField2 = screen.getByTestId("name2");
-    
-        fireEvent.change(inputField1, { target: { value: mockName1 } });
-        fireEvent.change(inputField2, { target: { value: mockName2 } });
-    
-        const buttonField = screen.getByRole("button");
-    
-        fireEvent.click(buttonField);
-    
-        const compatibilityScore =  screen.queryByTestId("score-message");
-    
-        expect(compatibilityScore).toBe(null);
-    });
-    //user s fills only FIRST textbox and press button= WRONG OPTION
-    test("Button click", async () => {
-        render(<Form />);  
-        
-        const mockName1 = "";
-        const mockName2 = "";
-    
-        const inputField1 = screen.getByTestId("name1");
-        const inputField2 = screen.getByTestId("name2");
-    
-        fireEvent.change(inputField1, { target: { value: mockName1 } });
-        fireEvent.change(inputField2, { target: { value: mockName2 } });
-    
-        const buttonField = screen.getByRole("button");
-    
-        fireEvent.click(buttonField);
-    
-        const compatibilityScore =  screen.queryByTestId("score-message");
-    
-        expect(compatibilityScore).toBe(null);
-    });
-    describe("3 possible combinations of click-NUMBER CASES", ()=> {
-        test("Button click", async () => {
-            render(<Form />);  
-            
-            const mockName1 = 0;
-            const mockName2 = "";
-        
-            const inputField1 = screen.getByTestId("name1");
-            const inputField2 = screen.getByTestId("name2");
-        
-            fireEvent.change(inputField1, { target: { value: mockName1 } });
-            fireEvent.change(inputField2, { target: { value: mockName2 } });
-        
-            const buttonField = screen.getByRole("button");
-        
-            fireEvent.click(buttonField);
-        
-            const compatibilityScore =  screen.queryByTestId("score-message");
-        
-            expect(compatibilityScore).toBe(null);
-        });
-        test("Button click", async () => {
-            render(<Form />);  
-            
-            const mockName1 = "Adam";
-            const mockName2 = 8;
-        
-            const inputField1 = screen.getByTestId("name1");
-            const inputField2 = screen.getByTestId("name2");
-        
-            fireEvent.change(inputField1, { target: { value: mockName1 } });
-            fireEvent.change(inputField2, { target: { value: mockName2 } });
-        
-            const buttonField = screen.getByRole("button");
-        
-            fireEvent.click(buttonField);
-        
-            const compatibilityScore =  screen.queryByTestId("score-message");
-        
-            expect(compatibilityScore).toBe(null);
-        });
-        test("Button click", async () => {
-            render(<Form />);  
-            
-            const mockName1 = 341;
-            const mockName2 = 8;
-        
-            const inputField1 = screen.getByTestId("name1");
-            const inputField2 = screen.getByTestId("name2");
-        
-            fireEvent.change(inputField1, { target: { value: mockName1 } });
-            fireEvent.change(inputField2, { target: { value: mockName2 } });
-        
-            const buttonField = screen.getByRole("button");
-        
-            fireEvent.click(buttonField);
-        
-            const compatibilityScore =  screen.queryByTestId("score-message");
-        
-            expect(compatibilityScore).toBe(null);
-        });
-    })
-})
+      }
+    }
+  );
+});
 
+describe("Form interaction with NUMBER values", () => {
+  const numericCases = [
+    [0, "", false],        
+    ["Adam", 8, false],    
+    [341, 8, false],       
+  ];
+
+  test.each(numericCases)(
+    "Button click with name1: %s, name2: %s, expect score visibility: %s",
+    async (name1, name2, shouldShowScore) => {
+      render(<Form isStarted={true} combinations={[]} setCombinations={() => {}} score={null} setScore={() => {}} />);
+
+      const inputField1 = screen.getByTestId("name1");
+      const inputField2 = screen.getByTestId("name2");
+
+      fireEvent.change(inputField1, { target: { value: name1 } });
+      fireEvent.change(inputField2, { target: { value: name2 } });
+
+      const buttonField = screen.getByRole("button");
+      fireEvent.click(buttonField);
+
+      const compatibilityScore = shouldShowScore
+        ? await screen.findByTestId("score-message")
+        : screen.queryByTestId("score-message");
+
+      expect(compatibilityScore).toBe(null);
+    }
+  );
+});
