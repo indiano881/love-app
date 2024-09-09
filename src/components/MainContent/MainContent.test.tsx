@@ -80,10 +80,8 @@ describe("user full interactions", () => {
   });
 
   test("user starts app, fills 2 inputs 3 times, presses compatibility button 3 times, only 3 results displayed", () => {
-    // Render the MainContent component
     render(<MainContent />);
   
-    // Start the app by clicking the 'Start' button
     const buttonStart = screen.getByRole('button', { name: /start/i });
     fireEvent.click(buttonStart);
   
@@ -106,8 +104,36 @@ describe("user full interactions", () => {
     const listCombinations = screen.getAllByRole("heading", { level: 5 });
     expect(listCombinations.length).toBe(3);
   });
-  
-  
 
- 
+  test("user starts app, fills 2 inputs 3 times, presses compatibility button 3 times, then presses STOP AND CLEAR, 0 results displayed", () => {
+  
+    render(<MainContent />);
+    
+    let buttonStartStop = screen.getByRole('button', { name: /start/i });
+    fireEvent.click(buttonStartStop); 
+  
+    const buttonCompatibility = screen.getByRole('button', { name: /calculate compatibility/i });
+  
+    const name1 = "Mario";
+    const name2 = "Peach";
+  
+    for (let i = 0; i < 3; i++) {
+      
+      const inputField1 = screen.getByTestId("name1");
+      const inputField2 = screen.getByTestId("name2");
+      
+      fireEvent.change(inputField1, { target: { value: name1 } });
+      fireEvent.change(inputField2, { target: { value: name2 } });
+  
+      fireEvent.click(buttonCompatibility);
+    }
+
+    buttonStartStop = screen.getByRole('button', { name: /stop and clear/i });
+    fireEvent.click(buttonStartStop);
+  
+    const listCombinations = screen.queryAllByRole("heading", { level: 5 });
+    expect(listCombinations.length).toBe(0);
+  });
+  
+  
 });

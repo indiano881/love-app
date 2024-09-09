@@ -14,9 +14,9 @@ describe("Content that is visible on page load (isStarted = false)", () => {
     );
   });
 
-  test("Renders 2 samples of the app", () => {
-    const samples = screen.getAllByRole("heading", { level: 5 });
-    expect(samples.length).toBe(2);
+  test("Renders 0 samples of the app-useEffect in mainContent will render 2 samples after", () => {
+    const samples = screen.queryAllByRole("heading", { level: 5 });
+    expect(samples.length).toBe(0);
   });
 });
 
