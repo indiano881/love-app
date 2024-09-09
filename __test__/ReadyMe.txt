@@ -1,0 +1,30 @@
+Love App is a simple compatibility generator that takes 2 inputs (only strings or symbol/NO null or numbers) 
+and generate a compatibility number from 0 to 100.
+
+The optimal App workflow should be like this:
+
+When you land on the page you will see the 2 input fields and CALCULATE COMPATIBILITY (CC) button button and below a START button.
+2Combinations sample will be visible.
+
+1)Until the button START is not clicked the infut fileds and the CC button are DISABLED but anyway visible to user.
+
+2)Once START is clicked: 
+    => the button text mewssage will swap to STOP AND CLEAR
+    => inupt fields and button are ENABLED
+    => 2 combinations samples will disappear
+
+3)since START as been pressed, users can type in the input two strings and press CC button.
+when CC button is clicked:
+    => under CC button you will see a message "Compatibility score is: {numer}"
+    => in the component below you will see the list updated with a message like "name 1+ name 2 = number"
+
+OBS. user should not be allowed to type numbers or null even in combination with single strings. In this case even if users 
+clicks CC button nothing will appear or disappear.
+
+4)When user is tired, can click the STOP AND CLEAR button.
+Once STOP AND CLEAR button is clicked: 
+    =>button text back to START
+    =>all combinations will disappear.
+    =>no samples visible.
+
+In the folder screenshots.workflow you will find the images of workflow. The numbers are in the correct order and should follow the description above.
