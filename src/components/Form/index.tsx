@@ -43,7 +43,7 @@ const Form = ({ combinations, setCombinations, isStarted, score, setScore }: For
       className="bg-pink-100 p-8 rounded-lg shadow-lg max-w-lg mx-auto mt-12"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-2xl font-bold text-center mb-6 text-purple-700">
+      <h2  className="text-2xl font-bold text-center mb-6 text-purple-700">
         Check compatibility:
       </h2>
 

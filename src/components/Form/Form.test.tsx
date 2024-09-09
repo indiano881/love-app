@@ -92,7 +92,7 @@ describe("Form interaction with various STRING inputs or NULL", () => {
       if (shouldShowScore) {
         expect(compatibilityScore).toBeInTheDocument();
       } else {
-        expect(compatibilityScore).toBe(null);
+        expect(compatibilityScore).toBeNull();
       }
     }
   );
